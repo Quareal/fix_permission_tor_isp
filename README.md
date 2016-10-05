@@ -23,7 +23,10 @@ $ wget -P /usr/local/bin/ https://raw.githubusercontent.com/Quareal/fix_permissi
 ```
 $ chmod +x /usr/local/bin/fix_permission_tor_isp.sh
 ```
-Добавить в планировщик ISPmanager на выполнение раз в минуту:
+
+Замените переменные `{ISP_USER}` и `{YOU_DOMAIN_NAME}` на свои.
+
+Добавьте в планировщик ISPmanager на выполнение раз в минуту:
 ```
 * * * * * /usr/local/bin/fix_permission_tor_isp.sh
 ```
