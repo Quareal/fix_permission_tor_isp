@@ -9,7 +9,6 @@ IfRun(){
 	echo "$RUNNING"
 }
 
-
 Running(){
 	echo "${GR}# Tor: running #${RS}"
 	chmod 0700 /var/www/{ISP_USER}/data/www/* &
@@ -43,7 +42,6 @@ NotRunning(){
 		echo "${RD}error: start${RS}"
 	fi
 }
-
 
 if [ $( IfRun ) == "1" ]; then
 	Running
