@@ -4,47 +4,52 @@ GR=`tput setaf 2`
 RS=`tput sgr0`
 
 IfRun(){
-	PID=`cat /var/run/tor/tor.pid`
-	RUNNING=`ps -ef | grep -v grep | grep $PID | wc -l`
-	echo "$RUNNING"
+		PID=`cat /var/run/tor/tor.pid`
+		RUNNING=`ps -ef | grep -v grep | grep $PID | wc -l`
+		echo "$RUNNING"
 }
 
+
 Running(){
-	echo "${GR}# Tor: running #${RS}"
-	chmod 0700 /var/www/{ISP_USER}/data/www/* &
-	wait $!
-	chown debian-tor:{ISP_USER} /var/www/{ISP_USER}/data/www/ &
-	wait $!
-	/etc/init.d/tor force-reload &
-	wait $!
-	if [ $( IfRun ) == "1" ]; then
-		chmod 0755 /var/www/{ISP_USER}/data/www/* &
-		wait $!
-		echo "${GR}force-reload complite${RS}"
-	else
-		echo "${RD}error: force-reload${RS}"
-	fi
+		echo `date +"%h %d %T.000"` "[notice] ${GR}# Tor: running #${RS}"
+		echo `date +"%h %d %T.000"` "[notice] ${GR}# Tor: running #${RS} @ Quareal/fix_permission_tor_isp" >> /var/log/tor/log
+		chmod 0700 /var/www/{ISP_USER}/data/www/*
+		chown debian-tor:{ISP_USER} /var/www/{ISP_USER}/data/www/
+			sleep 15
+		/etc/init.d/tor force-reload &
+			sleep 5
+		if [ $( IfRun ) == "1" ]; then
+			chmod 0755 /var/www/{ISP_USER}/data/www/*
+				sleep 15
+			echo `date +"%h %d %T.000"` "[notice] ${GR}force-reload completed${RS}"
+			echo `date +"%h %d %T.000"` "[notice] ${GR}force-reload completed${RS} @ Quareal/fix_permission_tor_isp" >> /var/log/tor/log
+		else
+			echo `date +"%h %d %T.000"` "[warn] ${RD}error: force-reload${RS}"
+			echo `date +"%h %d %T.000"` "[warn] ${RD}error: force-reload${RS} @ Quareal/fix_permission_tor_isp" >> /var/log/tor/log
+		fi
 }
 
 NotRunning(){
-	echo "${RD}# Tor: not running #${RS}"
-	chmod 0700 /var/www/{ISP_USER}/data/www/* &
-	wait $!
-	chown debian-tor:{ISP_USER} /var/www/{ISP_USER}/data/www/ &
-	wait $!
-	/etc/init.d/tor start &
-	wait $!
-	if [ $( IfRun ) == "1" ]; then
-		chmod 0755 /var/www/{ISP_USER}/data/www/* &
-		wait $!
-		echo "${GR}start complite${RS}"
-	else
-		echo "${RD}error: start${RS}"
-	fi
+		echo `date +"%h %d %T.000"` "[warn] ${RD}# Tor: not running #${RS}"
+		echo `date +"%h %d %T.000"` "[warn] ${RD}# Tor: not running #${RS} @ Quareal/fix_permission_tor_isp" >> /var/log/tor/log
+		chmod 0700 /var/www/{ISP_USER}/data/www/*
+		chown debian-tor:{ISP_USER} /var/www/{ISP_USER}/data/www/
+		    sleep 15
+		/etc/init.d/tor start &
+			sleep 5
+		if [ $( IfRun ) == "1" ]; then
+			chmod 0755 /var/www/{ISP_USER}/data/www/*
+				sleep 15
+			echo `date +"%h %d %T.000"` "[notice] ${GR}start completed${RS}"
+			echo `date +"%h %d %T.000"` "[notice] ${GR}start completed${RS} @ Quareal/fix_permission_tor_isp" >> /var/log/tor/log
+		else
+			echo `date +"%h %d %T.000"` "[warn] ${RD}error: start${RS}"
+			echo `date +"%h %d %T.000"` "[warn] ${RD}error: start${RS} @ Quareal/fix_permission_tor_isp" >> /var/log/tor/log
+		fi
 }
 
 if [ $( IfRun ) == "1" ]; then
-	Running
+		Running
 else
-	NotRunning
+		NotRunning
 fi
