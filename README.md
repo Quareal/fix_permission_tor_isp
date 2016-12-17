@@ -1,10 +1,10 @@
 ### Описание:
 Если при создании .onion домена средствами ISPmanager возникает такая ошибка:
 ```
-******************* [warn] Permissions on directory /var/www/{ISP_USER}/data/www/{YOU_DOMAIN_NAME}.onion/ are too permissive.
-******************* [warn] Failed to parse/validate config: Failed to configure rendezvous options. See logs for details.
-******************* [err] Reading config failed--see warnings above. For usage, try -h.
-******************* [warn] Restart failed (config error?). Exiting.
+ [warn] Permissions on directory /var/www/{ISP_USER}/data/www/{YOU_DOMAIN_NAME}.onion/ are too permissive.
+ [warn] Failed to parse/validate config: Failed to configure rendezvous options. See logs for details.
+ [err] Reading config failed--see warnings above. For usage, try -h.
+ [warn] Restart failed (config error?). Exiting.
 ```
 Эта ошибка возникает в следствии того, что ISPmanager при содании директории дает ей права `0755`, а Tor считает эти права завышенными и прекращает свою работу.
 
